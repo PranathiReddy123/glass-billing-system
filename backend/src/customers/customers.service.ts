@@ -20,4 +20,24 @@ export class CustomersService {
   async findAll() {
     return this.prisma.customer.findMany();
   }
+
+  async update(
+    id: number,
+    data: {
+      name: string;
+      phone?: string;
+      address?: string;
+    },
+  ) {
+    return this.prisma.customer.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async remove(id: number) {
+    return this.prisma.customer.delete({
+      where: { id },
+    });
+  }
 }

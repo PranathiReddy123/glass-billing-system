@@ -2,15 +2,26 @@ import { useEffect, useState } from "react";
 
 function Customers() {
   const [customers, setCustomers] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  useEffect(() => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+
+  const fetchCustomers = () => {
     fetch("http://localhost:3000/customers")
       .then((res) => res.json())
       .then((data) => setCustomers(data));
+  };
+
+  useEffect(() => {
+    fetchCustomers();
   }, []);
 
   const addCustomer = async () => {
@@ -36,6 +47,40 @@ function Customers() {
     setName("");
     setPhone("");
     setAddress("");
+  };
+
+  const deleteCustomer = async (id) => {
+    await fetch(
+      `http://localhost:3000/customers/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    fetchCustomers();
+  };
+
+  const updateCustomer = async () => {
+    await fetch(
+      `http://localhost:3000/customers/${editingId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    setEditingId(null);
+
+    setFormData({
+      name: "",
+      phone: "",
+      address: "",
+    });
+
+    fetchCustomers();
   };
 
   return (
@@ -68,6 +113,49 @@ function Customers() {
 
       <hr />
 
+      {editingId && (
+        <div>
+          <h3>Edit Customer</h3>
+
+          <input
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                name: e.target.value,
+              })
+            }
+            placeholder="Name"
+          />
+
+          <input
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                phone: e.target.value,
+              })
+            }
+            placeholder="Phone"
+          />
+
+          <input
+            value={formData.address}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                address: e.target.value,
+              })
+            }
+            placeholder="Address"
+          />
+
+          <button onClick={updateCustomer}>
+            Update Customer
+          </button>
+        </div>
+      )}
+
       <table border="1" cellPadding="10">
         <thead>
           <tr>
@@ -75,6 +163,7 @@ function Customers() {
             <th>Name</th>
             <th>Phone</th>
             <th>Address</th>
+            <th>Action</th>
           </tr>
         </thead>
 
@@ -85,6 +174,32 @@ function Customers() {
               <td>{customer.name}</td>
               <td>{customer.phone}</td>
               <td>{customer.address}</td>
+
+              <td>
+                <button
+                  onClick={() => {
+                    setEditingId(customer.id);
+
+                    setFormData({
+                      name: customer.name,
+                      phone: customer.phone || "",
+                      address: customer.address || "",
+                    });
+                  }}
+                >
+                  Edit
+                </button>
+
+                {" "}
+
+                <button
+                  onClick={() =>
+                    deleteCustomer(customer.id)
+                  }
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
