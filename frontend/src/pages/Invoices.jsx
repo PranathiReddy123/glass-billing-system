@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { jsPDF } from "jspdf";
 
 function Invoices() {
   const [invoices, setInvoices] = useState([]);
@@ -48,6 +49,20 @@ fetch("http://localhost:3000/products")
   setProductId("");
   setQuantity("");
 };
+
+const downloadPDF = (invoice) => {
+  const doc = new jsPDF();
+
+  doc.text("Invoice", 20, 20);
+  doc.text(`Invoice ID: ${invoice.id}`, 20, 40);
+  doc.text(`Customer: ${invoice.customer?.name}`, 20, 50);
+  doc.text(`Product: ${invoice.product?.name}`, 20, 60);
+  doc.text(`Quantity: ${invoice.quantity}`, 20, 70);
+  doc.text(`Total: Rs.${invoice.total}`, 20, 80);
+
+  doc.save(`invoice-${invoice.id}.pdf`);
+};
+
 
   return (
     <div>
@@ -108,6 +123,7 @@ fetch("http://localhost:3000/products")
             <th>Product</th>
             <th>Quantity</th>
             <th>Total</th>
+            <th>PDF</th>
           </tr>
         </thead>
 
@@ -119,6 +135,14 @@ fetch("http://localhost:3000/products")
               <td>{invoice.product?.name}</td>
               <td>{invoice.quantity}</td>
               <td>₹{invoice.total}</td>
+
+              <td>
+              <button
+              onClick={() => downloadPDF(invoice)}
+              >
+            Download PDF
+              </button>
+              </td>
             </tr>
           ))}
         </tbody>
