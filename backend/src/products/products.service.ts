@@ -22,4 +22,28 @@ export class ProductsService {
   async findAll() {
     return this.prisma.product.findMany();
   }
+
+  async update(
+    id: number,
+    data: {
+      name: string;
+      category: string;
+      stock: number;
+      rate: number;
+      unit: string;
+    },
+  ) {
+    return this.prisma.product.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async remove(id: number) {
+    return this.prisma.product.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
