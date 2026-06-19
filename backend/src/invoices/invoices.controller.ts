@@ -1,0 +1,26 @@
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { InvoicesService } from './invoices.service';
+
+@Controller('invoices')
+export class InvoicesController {
+  constructor(
+    private readonly invoicesService: InvoicesService,
+  ) {}
+
+  @Post()
+  create(
+    @Body()
+    body: {
+    customerId: number;
+    productId: number;
+    quantity: number;
+    },
+  ) {
+    return this.invoicesService.create(body);
+  }
+
+  @Get()
+  findAll() {
+    return this.invoicesService.findAll();
+  }
+}

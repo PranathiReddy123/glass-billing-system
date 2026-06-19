@@ -1,0 +1,130 @@
+import { useEffect, useState } from "react";
+
+function Invoices() {
+  const [invoices, setInvoices] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const [customerId, setCustomerId] = useState("");
+  const [productId, setProductId] = useState("");
+  const [quantity, setQuantity] = useState("");
+  
+
+  useEffect(() => {
+    fetch("http://localhost:3000/invoices")
+      .then((res) => res.json())
+      .then((data) => setInvoices(data));
+
+      fetch("http://localhost:3000/customers")
+  .then((res) => res.json())
+  .then((data) => setCustomers(data));
+
+fetch("http://localhost:3000/products")
+  .then((res) => res.json())
+  .then((data) => setProducts(data));
+  }, []);
+
+  const createInvoice = async () => {
+  const response = await fetch(
+    "http://localhost:3000/invoices",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customerId: Number(customerId),
+        productId: Number(productId),
+        quantity: Number(quantity),
+      }),
+    }
+  );
+
+  const invoice = await response.json();
+
+  setInvoices([...invoices, invoice]);
+
+  setCustomerId("");
+  setProductId("");
+  setQuantity("");
+};
+
+  return (
+    <div>
+      <h2>Create Invoice</h2>
+
+<select
+  value={customerId}
+  onChange={(e) => setCustomerId(e.target.value)}
+>
+  <option value="">Select Customer</option>
+
+  {customers.map((customer) => (
+    <option
+      key={customer.id}
+      value={customer.id}
+    >
+      {customer.name}
+    </option>
+  ))}
+</select>
+
+<select
+  value={productId}
+  onChange={(e) => setProductId(e.target.value)}
+>
+  <option value="">Select Product</option>
+
+  {products.map((product) => (
+    <option
+      key={product.id}
+      value={product.id}
+    >
+      {product.name}
+    </option>
+  ))}
+</select>
+
+<input
+  type="number"
+  placeholder="Quantity"
+  value={quantity}
+  onChange={(e) => setQuantity(e.target.value)}
+/>
+
+<button onClick={createInvoice}>
+  Create Invoice
+</button>
+
+<hr />
+
+      <h2>Invoices</h2>
+
+      <table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {invoices.map((invoice) => (
+            <tr key={invoice.id}>
+              <td>{invoice.id}</td>
+              <td>{invoice.customer?.name}</td>
+              <td>{invoice.product?.name}</td>
+              <td>{invoice.quantity}</td>
+              <td>₹{invoice.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default Invoices;
