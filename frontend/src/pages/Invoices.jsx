@@ -69,6 +69,7 @@ const downloadPDF = (invoice) => {
       <h2>Create Invoice</h2>
 
 <select
+  className="form-control"
   value={customerId}
   onChange={(e) => setCustomerId(e.target.value)}
 >
@@ -85,6 +86,7 @@ const downloadPDF = (invoice) => {
 </select>
 
 <select
+  className="form-control"
   value={productId}
   onChange={(e) => setProductId(e.target.value)}
 >
@@ -101,13 +103,16 @@ const downloadPDF = (invoice) => {
 </select>
 
 <input
+  className="form-control"
   type="number"
   placeholder="Quantity"
   value={quantity}
   onChange={(e) => setQuantity(e.target.value)}
 />
 
-<button onClick={createInvoice}>
+<button 
+className="btn btn-success"
+onClick={createInvoice}>
   Create Invoice
 </button>
 
@@ -115,7 +120,7 @@ const downloadPDF = (invoice) => {
 
       <h2>Invoices</h2>
 
-      <table border="1" cellPadding="10">
+      <table className="table table-striped table-bordered mt-3">
         <thead>
           <tr>
             <th>ID</th>
@@ -138,6 +143,7 @@ const downloadPDF = (invoice) => {
 
               <td>
               <button
+              className="btn btn-primary btn-sm"
               onClick={() => downloadPDF(invoice)}
               >
             Download PDF

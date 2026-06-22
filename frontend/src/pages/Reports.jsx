@@ -14,25 +14,25 @@ function Reports() {
   }
 
   return (
-    <div>
-      <h2>Sales Report</h2>
+  <div className="container mt-4">
+    <h2 className="mb-4">Sales Report</h2>
 
-      <div
-        style={{
-          border: "1px solid gray",
-          padding: "20px",
-          width: "300px",
-          marginTop: "20px",
-        }}
-      >
+    <div
+      className="card shadow"
+      style={{ width: "350px" }}
+    >
+      <div className="card-body">
         <h3>Total Invoices</h3>
-        <p>{report.totalInvoices}</p>
+        <h2>{report.totalInvoices}</h2>
+
+        <hr />
 
         <h3>Total Sales</h3>
-        <p>₹{report.totalSales}</p>
+        <h2>₹{report.totalSales}</h2>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default Reports;

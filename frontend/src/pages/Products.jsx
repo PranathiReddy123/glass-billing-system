@@ -103,18 +103,21 @@ function Products() {
       <h3>Add Product</h3>
 
       <input
+        className="form-control"
         placeholder="Product Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
       <input
-        placeholder="Category"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
+      className="form-control"
+      placeholder="Category"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
       />
 
       <input
+        className="form-control"
         placeholder="Stock"
         type="number"
         value={stock}
@@ -122,6 +125,7 @@ function Products() {
       />
 
       <input
+        className="form-control"
         placeholder="Rate"
         type="number"
         value={rate}
@@ -129,14 +133,18 @@ function Products() {
       />
 
       <input
+        className="form-control"
         placeholder="Unit"
         value={unit}
         onChange={(e) => setUnit(e.target.value)}
       />
 
-      <button onClick={addProduct}>
-        Add Product
-      </button>
+      <button
+  className="btn btn-success"
+  onClick={addProduct}
+>
+  Add Product
+</button>
 
       <hr />
 
@@ -194,7 +202,10 @@ function Products() {
             }
           />
 
-          <button onClick={updateProduct}>
+          <button
+          className="btn btn-primary"
+          onClick={updateProduct}
+          >
             Update Product
           </button>
 
@@ -202,7 +213,7 @@ function Products() {
         </div>
       )}
 
-      <table border="1" cellPadding="10">
+      <table className="table table-striped table-bordered mt-3">
         <thead>
           <tr>
             <th>ID</th>
@@ -225,7 +236,8 @@ function Products() {
 
               <td>
                 <button
-                  onClick={() => {
+  className="btn btn-warning btn-sm"
+  onClick={() => {
                     setEditingId(product.id);
 
                     setFormData({
@@ -243,8 +255,9 @@ function Products() {
                 {" "}
 
                 <button
-                  onClick={() => deleteProduct(product.id)}
-                >
+  className="btn btn-danger btn-sm"
+  onClick={() => deleteProduct(product.id)}
+>
                   Delete
                 </button>
               </td>

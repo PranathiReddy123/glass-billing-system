@@ -20,6 +20,7 @@ export class CustomersService {
   async findAll() {
     return this.prisma.customer.findMany();
   }
+  
 
   async update(
     id: number,

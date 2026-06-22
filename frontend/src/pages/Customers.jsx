@@ -90,26 +90,32 @@ function Customers() {
       <h3>Add Customer</h3>
 
       <input
+        className="form-control"
         placeholder="Customer Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
       <input
+        className="form-control"
         placeholder="Phone"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
       />
 
       <input
+        className="form-control"
         placeholder="Address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
 
-      <button onClick={addCustomer}>
-        Add Customer
-      </button>
+      <button
+  className="btn btn-success"
+  onClick={addCustomer}
+>
+  Add Customer
+</button>
 
       <hr />
 
@@ -117,7 +123,7 @@ function Customers() {
         <div>
           <h3>Edit Customer</h3>
 
-          <input
+          <input className="form-control"
             value={formData.name}
             onChange={(e) =>
               setFormData({
@@ -129,6 +135,7 @@ function Customers() {
           />
 
           <input
+          className="form-control"
             value={formData.phone}
             onChange={(e) =>
               setFormData({
@@ -140,6 +147,7 @@ function Customers() {
           />
 
           <input
+          className="form-control"
             value={formData.address}
             onChange={(e) =>
               setFormData({
@@ -150,13 +158,16 @@ function Customers() {
             placeholder="Address"
           />
 
-          <button onClick={updateCustomer}>
-            Update Customer
-          </button>
+          <button
+  className="btn btn-primary"
+  onClick={updateCustomer}
+>
+  Update Customer
+</button>
         </div>
       )}
 
-      <table border="1" cellPadding="10">
+      <table className="table table-striped table-bordered mt-3">
         <thead>
           <tr>
             <th>ID</th>
@@ -177,7 +188,8 @@ function Customers() {
 
               <td>
                 <button
-                  onClick={() => {
+  className="btn btn-warning btn-sm"
+  onClick={() => {
                     setEditingId(customer.id);
 
                     setFormData({
@@ -193,12 +205,11 @@ function Customers() {
                 {" "}
 
                 <button
-                  onClick={() =>
-                    deleteCustomer(customer.id)
-                  }
-                >
-                  Delete
-                </button>
+  className="btn btn-danger"
+  onClick={() =>
+    deleteCustomer(customer.id)
+  }
+>Delete</button>
               </td>
             </tr>
           ))}

@@ -8,17 +8,38 @@ import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Glass & Plywood Billing System</h1>
+  <div>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div className="container-fluid">
+        <span className="navbar-brand">
+          Glass & Plywood Billing System
+        </span>
 
-      <nav style={{ marginBottom: "20px" }}>
-        <Link to="/">Dashboard</Link>{" | "}
-        <Link to="/products">Products</Link>{" | "}
-        <Link to="/customers">Customers</Link>{" | "}
-        <Link to="/invoices">Invoices</Link>{" | "}
-        <Link to="/reports">Reports</Link>
-      </nav>
+        <div className="navbar-nav">
+          <Link className="nav-link text-white" to="/">
+            Dashboard
+          </Link>
 
+          <Link className="nav-link text-white" to="/products">
+            Products
+          </Link>
+
+          <Link className="nav-link text-white" to="/customers">
+            Customers
+          </Link>
+
+          <Link className="nav-link text-white" to="/invoices">
+            Invoices
+          </Link>
+
+          <Link className="nav-link text-white" to="/reports">
+            Reports
+          </Link>
+        </div>
+      </div>
+    </nav>
+
+    <div className="container mt-4">
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/products" element={<Products />} />
@@ -27,7 +48,9 @@ function App() {
         <Route path="/reports" element={<Reports />} />
       </Routes>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default App;

@@ -12,41 +12,50 @@ function Dashboard() {
   if (!stats) {
     return <h2>Loading Dashboard...</h2>;
   }
+return (
+  <div className="container mt-4">
+    <h2 className="mb-4">Dashboard</h2>
 
-  return (
-    <div>
-      <h2>Dashboard</h2>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          flexWrap: "wrap",
-          marginTop: "20px",
-        }}
-      >
-        <div style={{ border: "1px solid gray", padding: "20px", width: "200px" }}>
-          <h3>📦 Products</h3>
-          <h1>{stats.totalProducts}</h1>
+    <div className="row">
+      <div className="col-md-3">
+        <div className="card text-center shadow">
+          <div className="card-body">
+            <h5>📦 Products</h5>
+            <h2>{stats.totalProducts}</h2>
+          </div>
         </div>
+      </div>
 
-        <div style={{ border: "1px solid gray", padding: "20px", width: "200px" }}>
-          <h3>👥 Customers</h3>
-          <h1>{stats.totalCustomers}</h1>
+      <div className="col-md-3">
+        <div className="card text-center shadow">
+          <div className="card-body">
+            <h5>👥 Customers</h5>
+            <h2>{stats.totalCustomers}</h2>
+          </div>
         </div>
+      </div>
 
-        <div style={{ border: "1px solid gray", padding: "20px", width: "200px" }}>
-          <h3>🧾 Invoices</h3>
-          <h1>{stats.totalInvoices}</h1>
+      <div className="col-md-3">
+        <div className="card text-center shadow">
+          <div className="card-body">
+            <h5>🧾 Invoices</h5>
+            <h2>{stats.totalInvoices}</h2>
+          </div>
         </div>
+      </div>
 
-        <div style={{ border: "1px solid gray", padding: "20px", width: "200px" }}>
-          <h3>💰 Sales</h3>
-          <h1>₹{stats.totalSales}</h1>
+      <div className="col-md-3">
+        <div className="card text-center shadow">
+          <div className="card-body">
+            <h5>💰 Sales</h5>
+            <h2>Rs. {stats.totalSales}</h2>
+          </div>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default Dashboard;
